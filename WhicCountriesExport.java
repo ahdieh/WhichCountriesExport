@@ -36,10 +36,28 @@ public class WhicCountriesExport {
         return info;
     }
     
+    public void listExportersTwoProducts (CSVParser parser, String exportItem1, String exportItem2){
+        for (CSVRecord record : parser){
+            if (record.get("Exports").contains(exportItem1) && record.get("Exports").contains(exportItem2))
+            System.out.println(record.get("Country"));
+        }
+    }
+    
+    public int numberOfExporters (CSVParser parser, String exportItem){
+        int count = 0;
+        for (CSVRecord record : parser){
+            if (record.get("Exports").contains(exportItem)) count += 1;            
+        }
+        System.out.println(count);
+        return count;
+    }
+    
     public void whoExportsCoffee(){
         FileResource fr = new FileResource();
         CSVParser parser = fr.getCSVParser();
         //listExports(parser, "coffee");
-        countryInfo (parser, "Germany");
+        //countryInfo (parser, "Germany");
+        //listExportersTwoProducts(parser, "gold", "diamonds");
+        numberOfExporters (parser, "gold");
     }
 }
